@@ -2,7 +2,7 @@
 A Haskell implementation of simply typed lambda calculus type inhabitation using generation trees breadth-first traversal.
 ### Algorithm
 - I(gamma, alpha -> tau) => \x ^ alpha -> I(gamma + (x: alpha), tau) -- if we have an abstraction we generate __new__ variable x, assign type alpha to it and then inhabit tau
-- I(gamma, alpha) => forall x ^ (alpha1 -> alpha2 -> ... alphan -> alpha) in gamma x I(gamma, alpha1) I(gamma, alpha2) ... I(gamma, alpha2) -- otherwise we find in context variables x of type that has alpha as the return type and inhabit its arguments -- the result will be an application of arguments to that x
+- I(gamma, alpha) => forall x ^ (alpha1 -> alpha2 -> ... alphan -> alpha) in gamma x I(gamma, alpha1) I(gamma, alpha2) ... I(gamma, alpha2) -- otherwise we find variables x of type that has alpha as the return type in context and inhabit its arguments -- the result will be an application of arguments to that x
 ## Build
 To build the project you will need Glasgow Haskell Compiler (ghc):
 `ghc Main.hs` --- to get an executable `Main`
