@@ -213,6 +213,7 @@ inhabTree gamma alpha = nxtRepeated (Path gamma alpha id) 1
 inhabTree0 :: Type -> [Expr]
 inhabTree0 alpha = inhabTree (Env []) alpha
 
+-- examples
 {-
 > inhabTree0 (TVar "a")
 []
