@@ -227,22 +227,22 @@ inhabTree0 alpha = inhabTree (Env []) alpha
 [(\x1 x2 x3 -> x3),(\x1 x2 x3 -> x2),(\x1 x2 x3 -> x1)]
 > inhabTree0 (TVar "a" :-> TVar "b" :-> TVar "a" :-> TVar "a")
 [(\x1 x2 x3 -> x3),(\x1 x2 x3 -> x1)]
--- числа Черча
+-- Church numbers
 > take 5 $ inhabTree0 $ (TVar "a" :-> TVar "a") :-> TVar "a" :-> TVar "a"
 [(\x1 x2 -> x2),(\x1 x2 -> x1 x2),(\x1 x2 -> x1 (x1 x2)),(\x1 x2 -> x1 (x1 (x1 x2))),(\x1 x2 -> x1 (x1 (x1 (x1 x2))))]
 -- everything ok --- x1 found
 > take 5 $ inhabTree0 $ (TVar "a" :-> TVar "a") :-> (TVar "a" :-> TVar "a") :-> TVar "a" :-> TVar "a"
 [(\x1 x2 x3 -> x3),(\x1 x2 x3 -> x2 x3),(\x1 x2 x3 -> x1 x3),(\x1 x2 x3 -> x2 (x2 x3)),(\x1 x2 x3 -> x2 (x1 x3))]
--- тип бинарных деревьев
+-- binary trees type
 > take 6 $ inhabTree0 $ (TVar "a" :-> TVar "a" :-> TVar "a") :-> TVar "a" :-> TVar "a"
 [(\x1 x2 -> x2),(\x1 x2 -> x1 x2 x2),(\x1 x2 -> x1 ((x1 x2) x2) x2),(\x1 x2 -> x1 x2 ((x1 x2) x2)),(\x1 x2 -> x1 x2 ((x1 ((x1 x2) x2)) x2)),(\x1 x2 -> x1 x2 ((x1 x2) ((x1 x2) x2)))]
--- Тип 3 порядка: количество переменных, по которым абстрагируемся, неограниченно растет
+-- Third order types: number of abstractions grows infinitely 
 > take 6 $ inhabTree0 $ ((TVar "a" :-> TVar "a") :-> TVar "a") :-> TVar "a"
 [(\x1 -> x1 \x2 -> x2),(\x1 -> x1 \x2 -> x1 \x3 -> x3),(\x1 -> x1 \x2 -> x1 \x3 -> x2),(\x1 -> x1 \x2 -> x1 \x3 -> x1 \x4 -> x4),(\x1 -> x1 \x2 -> x1 \x3 -> x1 \x4 -> x3),(\x1 -> x1 \x2 -> x1 \x3 -> x1 \x4 -> x2)]
--- fmap для монады Cont
+-- fmap for Cont monad
 > inhabTree0 $ (TVar "a" :-> TVar "b") :-> ((TVar "a" :-> TVar "c") :-> TVar "d") :-> (TVar "b" :-> TVar "c") :-> TVar "d"
 [(\x1 x2 x3 -> x2 \x4 -> x3 (x1 x4))]
--- fmap для монады Sel
+-- fmap for Sel monad
 > take 3 $ inhabTree0 $ (TVar "a" :-> TVar "b") :->  ((TVar "a" :-> TVar "c") :-> TVar "a") :-> (TVar "b" :-> TVar "c") :-> TVar "b"
 [(\x1 x2 x3 -> x1 (x2 \x4 -> x3 (x1 x4))),(\x1 x2 x3 -> x1 (x2 \x4 -> x3 (x1 (x2 \x5 -> x3 (x1 x5))))),(\x1 x2 x3 -> x1 (x2 \x4 -> x3 (x1 (x2 \x5 -> x3 (x1 x4)))))]
 -- "monster" type is also handled correctly
