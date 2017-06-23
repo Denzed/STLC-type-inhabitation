@@ -9,6 +9,6 @@ inhabTreeWrapper typeString countString = if null countString
 main = do
     putStrLn "Please, enter the type to inhabit:"
     input <- getLine
-    putStrLn "Please, enter the desired number of terms \nto limit the result with (leave blank if you want all)"
+    putStrLn "Please, enter the desired number of terms \nto limit the result with (leave blank if you want all):"
     count <- getLine
     print $ inhabTreeWrapper input count
